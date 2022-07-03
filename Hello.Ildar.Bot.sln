@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hello.Ildar.Bot", "Hello.Ildar.Bot\Hello.Ildar.Bot.csproj", "{C7084DEA-7051-4ED1-9BF5-CA38FC66AAEF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hello.Ildar.Bot.DataAccess", "Hello.Ildar.Bot.DataAccess\Hello.Ildar.Bot.DataAccess.csproj", "{52E45B6B-1441-4DEF-A88E-6CEF63696C06}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hello.Ildar.Bot.AppServices", "Hello.Ildar.Bot.AppServices\Hello.Ildar.Bot.AppServices.csproj", "{D7CEBA48-AFD0-497B-992B-757A1E418902}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hello.Ildar.Bot.Domain", "Hello.Ildar.Bot.Domain\Hello.Ildar.Bot.Domain.csproj", "{AD10191F-7492-4E9A-9C84-5B800BE26A31}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C7084DEA-7051-4ED1-9BF5-CA38FC66AAEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7084DEA-7051-4ED1-9BF5-CA38FC66AAEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7084DEA-7051-4ED1-9BF5-CA38FC66AAEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7084DEA-7051-4ED1-9BF5-CA38FC66AAEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52E45B6B-1441-4DEF-A88E-6CEF63696C06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52E45B6B-1441-4DEF-A88E-6CEF63696C06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52E45B6B-1441-4DEF-A88E-6CEF63696C06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52E45B6B-1441-4DEF-A88E-6CEF63696C06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7CEBA48-AFD0-497B-992B-757A1E418902}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7CEBA48-AFD0-497B-992B-757A1E418902}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7CEBA48-AFD0-497B-992B-757A1E418902}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7CEBA48-AFD0-497B-992B-757A1E418902}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD10191F-7492-4E9A-9C84-5B800BE26A31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD10191F-7492-4E9A-9C84-5B800BE26A31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD10191F-7492-4E9A-9C84-5B800BE26A31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD10191F-7492-4E9A-9C84-5B800BE26A31}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
