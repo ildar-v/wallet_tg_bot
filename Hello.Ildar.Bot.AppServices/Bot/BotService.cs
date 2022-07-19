@@ -1,4 +1,6 @@
-﻿using Telegram.Bot;
+﻿using Hello.Ildar.Bot.AppServices.Data;
+using Microsoft.Extensions.Configuration;
+using Telegram.Bot;
 using Telegram.Bot.Exceptions;
 using Telegram.Bot.Polling;
 using Telegram.Bot.Types;
@@ -8,15 +10,26 @@ namespace Hello.Ildar.Bot.AppServices.Bot;
 
 public class BotService : IBotService
 {
-    private readonly IBotDbService _botDbService;
+    private readonly ITelegramUserService _telegramUserService;
+    private readonly IBotAnswerService _botAnswerService;
+    private readonly IConfiguration _configuration;
 
-    public BotService(IBotDbService botDbService)
+    public BotService(
+        ITelegramUserService telegramUserService,
+        IBotAnswerService botAnswerService,
+        IConfiguration configuration)
     {
-        _botDbService = botDbService;
+        _telegramUserService = telegramUserService;
+        _botAnswerService = botAnswerService;
+        _configuration = configuration;
     }
 
     public async Task StartBot(CancellationToken ct)
     {
+        var token = _configuration.GetSection("TelegramBot:Token").Value
+                    ?? throw new ArgumentNullException("Configuration hasn't value for TelegramBot:Token");
+
+        var botClient = new TelegramBotClient(token);
 
         // StartReceiving does not block the caller thread. Receiving is done on the ThreadPool.
         var receiverOptions = new ReceiverOptions
@@ -38,50 +51,44 @@ public class BotService : IBotService
 
     private async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken ct)
     {
-        // Only process Message updates: https://core.telegram.org/bots/api#message
-        if (update.Type != UpdateType.Message)
-            return;
-
-        // Only process text messages
-        if (update.Message!.Type != MessageType.Text)
-            return;
-
-        var chatId = update.Message.Chat.Id;
-        var messageText = update.Message.Text;
-
-        Console.WriteLine($"Received a '{messageText}' message in chat {chatId}.");
-        
-        // var message = $"{update.Message.Chat.FirstName}, вы написали :\n"
-        //               + messageText
-        //               + $"\nВаша ссылка в телегу: https://t.me/{update.Message.Chat.Username}";
-        var message = string.Empty;
-
-        var categoryCommand = messageText?.Split(" ");
-        if (categoryCommand != null
-            && categoryCommand.Length > 1
-            && categoryCommand[0].ToLower().Trim() == "добавить")
+        try
         {
-            var categoryName = string.Join(
-                " ",
-                categoryCommand.Skip(1));
+            // Only process Message updates: https://core.telegram.org/bots/api#message
+            if (update.Type != UpdateType.Message)
+                return;
 
-            categoryName = categoryName.Substring(0, categoryName.Length < 50 ? categoryName.Length : 50);
-            var addedCategoryId  = await _botDbService.AddCategory(categoryName);
-            message = $"Категория {categoryName} была добавлена с Id {addedCategoryId}";
+            // Only process text messages
+            if (update.Message!.Type != MessageType.Text)
+                return;
+
+            var chatId = update.Message.Chat.Id;
+
+            Console.WriteLine($"Received a '{update.Message.Text}' message in chat {chatId}.");
+
+            var currentUser = await _telegramUserService.AddAsync(update.Message.Chat, ct);
+
+            var answer = await _botAnswerService.Get(update.Message, currentUser, ct);
+            // update.Message.MessageId
+
+            if (answer != null)
+            {
+                await botClient.SendTextMessageAsync(
+                    chatId: chatId,
+                    text: answer.Text,
+                    cancellationToken: ct,
+                    replyMarkup: answer.ReplyMarkup,
+                    replyToMessageId: update.Message.MessageId,
+                    allowSendingWithoutReply: false
+                );
+            }
         }
-
-        if (messageText == "категории")
+        catch (Exception ex)
         {
-            var allCategories = await _botDbService.GetAllCategories();
-            message = $"Все категории: {allCategories}";
+            Console.WriteLine(ex.ToString());
         }
-
-        if (!string.IsNullOrWhiteSpace(message))
+        catch
         {
-            var sentMessage = await botClient.SendTextMessageAsync(
-                chatId: chatId,
-                text: message,
-                cancellationToken: ct);
+            Console.WriteLine("Произошла непредвиденная ошибка!");
         }
     }
 

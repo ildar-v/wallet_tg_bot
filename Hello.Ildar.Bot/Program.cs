@@ -42,9 +42,7 @@ await botService.StartBot(cancellationTokenSource.Token);
 
 while (true)
 {
-    var command = Console.ReadLine();
-
-    if (command?.ToLower().Trim() == StopCommand)
+    if (Console.ReadLine()?.ToLower().Trim() == StopCommand)
     {
         return 0;
     }

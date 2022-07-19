@@ -1,10 +1,12 @@
-﻿namespace Hello.Ildar.Bot.Domain.Entities;
+﻿namespace Hello.Ildar.Bot.Contracts;
 
-/// <summary>
-/// Пользователь.
-/// </summary>
-public class User : EntityBase
+public class TelegramUserDto
 {
+    /// <summary>
+    /// Идентификатор пользователя в БД.
+    /// </summary>
+    public int Id { get; set; }
+ 
     /// <summary>
     /// Unique identifier for this chat. This number may have more
     /// than 32 significant bits and some programming languages may have
@@ -12,7 +14,7 @@ public class User : EntityBase
     /// at most 52 significant bits, so a signed 64-bit integer
     /// or double-precision float type are safe for storing this identifier.
     /// </summary>
-    public int ChatId { get; set; }
+    public long ChatId { get; set; }
 
     /// <summary>
     /// Type of chat, can be either “private”, “group”, “supergroup” or “channel”
@@ -38,4 +40,14 @@ public class User : EntityBase
     /// Optional. Last name of the other party in a private chat
     /// </summary>
     public string? LastName { get; set; }
+    
+    /// <summary>
+    /// Сериализованные данные чата.
+    /// </summary>
+    public bool IsAdmin { get; set; }
+    
+    /// <summary>
+    /// Сериализованные данные чата.
+    /// </summary>
+    public int? LastRecordId { get; set; }
 }

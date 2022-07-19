@@ -5,9 +5,11 @@
 /// </summary>
 public class Record : EntityBase
 {
-    public User User;
-    
-    public Category Category;
-    
+    public int TelegramUserId { get; set; }
+    public TelegramUser TelegramUser { get; set; }
+
+    public int CategoryId { get; set; }
+    public Category Category { get; set; }
+
     public decimal Value { get; set; }
 }

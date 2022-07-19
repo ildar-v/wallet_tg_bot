@@ -11,6 +11,8 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Hello.Ildar.Bot.Common\Hello.Ildar.Bot.Common.csproj" />
+      <ProjectReference Include="..\Hello.Ildar.Bot.Contracts\Hello.Ildar.Bot.Contracts.csproj" />
       <ProjectReference Include="..\Hello.Ildar.Bot.DataAccess\Hello.Ildar.Bot.DataAccess.csproj" />
     </ItemGroup>
 
