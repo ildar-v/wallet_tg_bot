@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Telegram.Bot" Version="18.0.0-alpha.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Ildar.Wallet.Bot.Common\Ildar.Wallet.Bot.Common.csproj" />
+      <ProjectReference Include="..\Ildar.Wallet.Bot.Contracts\Ildar.Wallet.Bot.Contracts.csproj" />
+      <ProjectReference Include="..\Ildar.Wallet.Bot.DataAccess\Ildar.Wallet.Bot.DataAccess.csproj" />
+    </ItemGroup>
+
+</Project>
