@@ -1,0 +1,25 @@
+version: '3.1'
+
+services:
+  postgres:
+    image: postgres:14.4
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: {postgres.password}
+      PGDATA: "/var/postgresql/ildar.wallet/data/pgdata"
+    volumes:
+      - .:/var/lib/postgresql/data
+    networks:
+      - postgres
+    ports:
+      - "5432:5432"
+  api:
+    build: ../src
+    networks:
+      - postgres
+    depends_on:
+      - postgres
+networks:
+  postgres:
+    driver: bridge
