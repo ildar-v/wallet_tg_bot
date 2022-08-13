@@ -12,4 +12,6 @@ public class Record : EntityBase
     public Category Category { get; set; }
 
     public decimal Value { get; set; }
+
+    public DateTime DateTime { get; set; } = DateTime.UtcNow;
 }
